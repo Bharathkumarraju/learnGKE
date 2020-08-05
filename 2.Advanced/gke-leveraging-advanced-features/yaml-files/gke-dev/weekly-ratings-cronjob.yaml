@@ -1,0 +1,14 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: weekly-ratings-cronjob
+spec:
+  schedule: ""
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: customer-ratings
+            image: gcr.io/spikey-gke/customer-ratings:v1
+          restartPolicy: OnFailure

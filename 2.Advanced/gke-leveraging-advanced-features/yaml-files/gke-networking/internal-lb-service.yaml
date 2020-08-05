@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spikey-internal-service
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+  labels:
+    app: spikey-website
+spec:
+  type: LoadBalancer
+  ports:
+  - name: port-name
+    port: 80
+    protocol: TCP 
+  selector:
+    app: spikey-website # label selector for Pods to target

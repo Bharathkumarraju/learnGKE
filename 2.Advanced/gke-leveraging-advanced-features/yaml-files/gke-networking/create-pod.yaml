@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:  spikey-pod
+spec:
+  containers:
+    - name: spikey-website-pod
+      image: gcr.io/spikey-gke/spikey-website:v1
+        

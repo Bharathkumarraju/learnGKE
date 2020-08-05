@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: present-ratings-job
+spec:
+  template:
+    metadata:
+      name: present-ratings-job
+      labels:
+        preemptive: "true"
+    spec:
+      containers:
+      - name: customer-ratings
+        image: gcr.io/spikey-gke/customer-ratings:v1
+      nodeSelector:
+        preemptive: "true"
+      restartPolicy: Never

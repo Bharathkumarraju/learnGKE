@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-alert
+spec:
+  selector:
+    matchLabels:
+      app: message-alert
+  template:
+    metadata:
+      labels:
+        app: message-alert
+    spec:
+      containers:
+      - name: subscriber
+        image: gcr.io/google-samples/pubsub-sample:v1
+
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-alert
+spec:
+  selector:
+    matchLabels:
+      app: message-alert
+  template:
+    metadata:
+      labels:
+        app: message-alert
+    spec:
+      volumes:
+      - name: message-alert-volume
+        secret:
+          secretName: message-alert-key
+      containers:
+      - name: subscriber
+        image: gcr.io/google-samples/pubsub-sample:v1
+        volumeMounts:
+        - name: message-alert-volume
+          mountPath: /var/secrets/google
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json

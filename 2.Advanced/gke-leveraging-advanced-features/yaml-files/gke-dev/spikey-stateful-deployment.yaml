@@ -1,0 +1,34 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: spikey-website
+spec:
+  serviceName: spikey-website
+  replicas: 3
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: spikey-website
+  template:
+    metadata:
+      labels:
+        app: spikey-website
+    spec:
+      containers:
+      - name: spikey-website
+        image:  gcr.io/spikey-gke/spikey-website:v1
+        ports:
+        - containerPort: 80
+          name: spikey-website
+        volumeMounts:
+        - name: spikey-website-pv
+          mountPath: /spikey-website-pv
+  volumeClaimTemplates:
+  - metadata:
+      name: spikey-website-pv
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

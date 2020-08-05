@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: spikey-website
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spikey-website
+  template:
+    metadata:
+      labels:
+        app: spikey-website
+    spec:
+      containers:
+      - name: spikey-website
+        image: gcr.io/spikey-gke/spikey-website:v1
+        ports:
+        - containerPort: 8080

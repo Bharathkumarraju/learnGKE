@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spikey-website-svc 
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}' # Creates an NEG after an Ingress is created
+spec: 
+  selector:
+    run: spikey-website 
+  ports:
+  - port: 80 
+    protocol: TCP
+    targetPort: 9376 # Should match the containerPort used by the Deployment's containers 
