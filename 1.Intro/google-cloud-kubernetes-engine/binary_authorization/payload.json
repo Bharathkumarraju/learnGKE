@@ -1,0 +1,11 @@
+{
+  "critical": {
+    "identity": {
+      "docker-reference": "us.gcr.io/srianjaneyam/hello-world"
+    },
+    "image": {
+      "docker-manifest-digest": "sha256:35a70bdb7394af1b8c317cdcbb4c9b5560dbb165b53848fee7f77ab59f3e0724"
+    },
+    "type": "Google cloud binauthz container signature"
+  }
+}

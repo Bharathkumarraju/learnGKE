@@ -1,0 +1,14 @@
+{
+  'resource': 'projects/$PROJECT_ID/notes/$NOTE_ID',
+  'policy': {
+    'bindings': [
+      {
+        'role': 'roles/containeranalysis.notes.occurrences.viewer',
+        'members': [
+          'serviceAccount:service-202016682554@gcp-sa-binaryauthorization.iam.gserviceaccount.com'
+        ]
+      }
+    ]
+  }
+
+}
