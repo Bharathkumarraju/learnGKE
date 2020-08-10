@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: priviledged-spikey-pod
+  name: priviledged-bk-pod
 spec:
   containers:
-    - name: spikey-website-pod
-      image: gcr.io/srianjaneyam/spikey-website:v1
+    - name: bk-website-pod
+      image: gcr.io/srianjaneyam/bk-website:v1
       securityContext:
         privileged: true

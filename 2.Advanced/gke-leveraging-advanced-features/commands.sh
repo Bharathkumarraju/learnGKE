@@ -15,7 +15,7 @@ sudo gcloud components update
 
 kubectl get nodes
 
-kubectl describe node gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb
+kubectl describe node gke-bk-dev-cluste-preemptive-pool-c72cb76e-hzpb
 
 # go to editor and write image file in gke-dev directory
 # upload that file in gcr
@@ -40,14 +40,14 @@ kubectl describe job present-ratings-job
 # Go in instance groups monitoring to observe that job ran on one instance group only
 # Now taint the preemptive node pool
 
-gcloud container node-pools list --cluster spikey-dev-cluster
+gcloud container node-pools list --cluster bk-dev-cluster
 
 kubectl get nodes
 
-kubectl taint nodes gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb \
+kubectl taint nodes gke-bk-dev-cluste-preemptive-pool-c72cb76e-hzpb \
  preemptive="true":NoSchedule
 
-kubectl describe node gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb
+kubectl describe node gke-bk-dev-cluste-preemptive-pool-c72cb76e-hzpb
 
 # Upload remaining reviews to bucket
 # Schedule the time properly
@@ -62,15 +62,15 @@ kubectl describe job weekly-ratings-cronjob
 
 kubectl get nodes
 
-kubectl taint nodes gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb preemptive-
+kubectl taint nodes gke-bk-dev-cluste-preemptive-pool-c72cb76e-hzpb preemptive-
 
 kubectl get nodes
 
-kubectl describe nodes gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb
+kubectl describe nodes gke-bk-dev-cluste-preemptive-pool-c72cb76e-hzpb
 
-gcloud container node-pools list --cluster spikey-dev-cluster
+gcloud container node-pools list --cluster bk-dev-cluster
 
-gcloud container node-pools delete preemptive-pool --cluster spikey-dev-cluster
+gcloud container node-pools delete preemptive-pool --cluster bk-dev-cluster
 
 
 
@@ -86,72 +86,72 @@ sudo gcloud components update
 
 # Uploading website to gcr 
 
-docker build -t gcr.io/srianjaneyam/spikey-website:v1 .
+docker build -t gcr.io/srianjaneyam/bk-website:v1 .
 
 gcloud auth configure-docker
 
-docker push gcr.io/srianjaneyam/spikey-website:v1 
+docker push gcr.io/srianjaneyam/bk-website:v1 
 
-docker build -t gcr.io/srianjaneyam/spikey-website:v1-offer .
+docker build -t gcr.io/srianjaneyam/bk-website:v1-offer .
 
-docker push gcr.io/srianjaneyam/spikey-website:v1-offer 
-
-
-# Deploying spikeysales first version 
-
-kubectl apply -f spikey-stateless-deployment.yaml 
-
-kubectl describe deployment spikey-website
-
-kubectl get pods -l app=spikey-website
-
-kubectl describe pod spikey-website
-
-kubectl get deployments spikey-website -o yaml
-
-kubectl expose deployment spikey-website --type LoadBalancer --port 80 --target-port 80
+docker push gcr.io/srianjaneyam/bk-website:v1-offer 
 
 
-# Deploying spikeysales secong version 
+# Deploying bksales first version 
+
+kubectl apply -f bk-stateless-deployment.yaml 
+
+kubectl describe deployment bk-website
+
+kubectl get pods -l app=bk-website
+
+kubectl describe pod bk-website
+
+kubectl get deployments bk-website -o yaml
+
+kubectl expose deployment bk-website --type LoadBalancer --port 80 --target-port 80
+
+
+# Deploying bksales secong version 
 # Go to deployment console action -> rolling update and then change the image file to 
-# gcr.io/srianjaneyam/spikeysales-website:v1-offer
+# gcr.io/srianjaneyam/bksales-website:v1-offer
 # observe the revision
 
-kubectl rollout status deployment spikey-website
+kubectl rollout status deployment bk-website
 
-#kubectl rollout history deployment spikey-website
+#kubectl rollout history deployment bk-website
 
-kubectl describe deployment spikey-website
+kubectl describe deployment bk-website
 
-kubectl get pods -l app=spikey-website
+kubectl get pods -l app=bk-website
 
-kubectl describe pod spikey-website
+kubectl describe pod bk-website
 
-kubectl get deployments spikey-website -o yaml
+kubectl get deployments bk-website -o yaml
 
-kubectl rollout undo deployment spikey-website --to-revision=1
+kubectl rollout undo deployment bk-website --to-revision=1
 
 
 # Deploying stateful deployment using RollingUpdate using imagefile
-# gcr.io/srianjaneyam/spikeysales-website:v1-offer
+# gcr.io/srianjaneyam/bksales-website:v1-offer
 # Delete pods from both the deloyment and observe the difference 
 
 
-kubectl apply -f spikey-stateful-deployment.yaml 
+kubectl apply -f bk-stateful-deployment.yaml 
 
-kubectl describe deployment spikey-website
+kubectl describe deployment bk-website
 
-kubectl get pods -l app=spikey-website
+kubectl get pods -l app=bk-website
 
-kubectl describe pod spikey-website
+kubectl describe pod bk-website
 
-kubectl get deployments spikey-website -o yaml
+kubectl get deployments bk-website -o yaml
 
 # Delete Deployment having ReplicaSet pods
 
 >>>>> Module 1 Demo 4
 
-gcloud container clusters get-credentials spikey-dev-cluster \
+gcloud container clusters get-credentials bk-dev-cluster \
 --zone us-central1-a --project srianjaneyam
 
 gcloud pubsub topics create echo
@@ -176,7 +176,7 @@ kubectl apply -f message-alert-pubsub.yaml
 kubectl get pods -l app=message-alert
 
 gcloud pubsub topics publish echo \
---message="Flash Sale on Spikeysales! 50% off on all Face Shop products.!"
+--message="Flash Sale on bksales! 50% off on all Face Shop products.!"
 
 kubectl logs -l app=message-alert
 
@@ -197,31 +197,31 @@ gcloud config set compute/zone us-central1-a
 
 sudo gcloud components update
 
-gcloud container clusters create spikey-cluster \
+gcloud container clusters create bk-cluster \
  --enable-network-policy
 
-kubectl run spikey-website --labels app=spikey-website \
-  --image=gcr.io/srianjaneyam/spikey-website:v1 \
+kubectl run bk-website --labels app=bk-website \
+  --image=gcr.io/srianjaneyam/bk-website:v1 \
   --port 80 \
   --expose
 
-kubectl apply -f spikey-allow-from-dev.yaml 
+kubectl apply -f bk-allow-from-dev.yaml 
 
 kubectl run -l app=dev --image=alpine \
  --restart=Never --rm -i -t test-pod
 
-wget -qO- --timeout=2 http://spikey-website:80
+wget -qO- --timeout=2 http://bk-website:80
 
 exit
 
 kubectl run -l app=test --image=alpine \
  --restart=Never --rm -i -t test-pod
 
-wget -qO- --timeout=2 http://spikey-website:80
+wget -qO- --timeout=2 http://bk-website:80
 
 exit
 
-kubectl apply -f dev-allow-from-spikey.yaml 
+kubectl apply -f dev-allow-from-bk.yaml 
 
 kubectl run nginx --labels app=nginx \
   --image=nginx --port 9000 \
@@ -230,7 +230,7 @@ kubectl run nginx --labels app=nginx \
 kubectl run -l app=dev --image=alpine \
  --restart=Never --rm -i -t test-pod
 
-wget -qO- --timeout=2 http://spikey-website:80
+wget -qO- --timeout=2 http://bk-website:80
 
 wget -qO- --timeout=2 http://nginx:9000
 
@@ -238,7 +238,7 @@ wget -qO- --timeout=2 http://www.example.com
 
 exit
 
-gcloud container clusters delete spikey-cluster \
+gcloud container clusters delete bk-cluster \
  --zone us-central1-a
 
 
@@ -252,7 +252,7 @@ export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
 gcloud config set compute/zone us-central1-a
 
-gcloud beta container clusters create spikey-website-cluster \
+gcloud beta container clusters create bk-website-cluster \
  --private-cluster \
  --master-ipv4-cidr 172.16.0.16/28 \
  --enable-ip-alias \
@@ -265,14 +265,14 @@ gcloud compute instances create content-team-instance \
 
 gcloud compute ssh content-team-instance --zone us-central1-a
 
-gcloud container clusters get-credentials spikey-website-cluster \
+gcloud container clusters get-credentials bk-website-cluster \
  --zone us-central1-a
 
 # Giving access of private cluster to source instance
 
 gcloud compute networks subnets list --network default
 
-gcloud compute networks subnets describe gke-spikey-website-cluster-subnet-dee353c1\
+gcloud compute networks subnets describe gke-bk-website-cluster-subnet-dee353c1\
   --region us-central1
 
 gcloud compute instances stop content-team-instance
@@ -284,7 +284,7 @@ gcloud compute instances set-service-account content-team-instance \
 gcloud compute instances describe content-team-instance \
  --zone us-central1-a | grep natIP
 
-gcloud container clusters update spikey-website-cluster \
+gcloud container clusters update bk-website-cluster \
  --enable-master-authorized-networks \
  --master-authorized-networks 35.193.223.122/32
 
@@ -293,7 +293,7 @@ gcloud container clusters update spikey-website-cluster \
 
 gcloud compute ssh content-team-instance --zone us-central1-a
 
-gcloud container clusters get-credentials spikey-website-cluster \
+gcloud container clusters get-credentials bk-website-cluster \
  --zone us-central1-a
 
 sudo apt-get install kubectl
@@ -315,7 +315,7 @@ gcloud config set compute/zone us-central1-a
 
 gcloud container get-server-config
 
-gcloud container clusters create spikey-website-cluster \
+gcloud container clusters create bk-website-cluster \
     --enable-ip-alias \
     --create-subnetwork="" \
     --network=default \
@@ -329,7 +329,7 @@ gcloud container clusters create spikey-website-cluster \
 # Create a Cluster IP load balancer 
 # (show thats its not accessible in browser buts its accesible within cluster and not in another vm in same network)
 
-kubectl apply -f spikey-internal-lb-service.yaml
+kubectl apply -f bk-internal-lb-service.yaml
 
 # Another VM will be qa-team-instance
 
@@ -344,30 +344,30 @@ https://github.com/kubernetes/kubernetes/tree/master/test/images/serve-hostname
 
 export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
-gcloud container clusters get-credentials spikey-website-cluster \
+gcloud container clusters get-credentials bk-website-cluster \
  --zone us-central1-a \
  --project srianjaneyam
 
 
-kubectl apply -f spikey-neg-deployment.yaml
+kubectl apply -f bk-neg-deployment.yaml
 
-kubectl apply -f spikey-neg-service.yaml
+kubectl apply -f bk-neg-service.yaml
 
-kubectl apply -f spikey-neg-ingress.yaml
+kubectl apply -f bk-neg-ingress.yaml
 
-kubectl describe ingress spikey-website-ingress
+kubectl describe ingress bk-website-ingress
 
-kubectl get ingress spikey-website-ingress
+kubectl get ingress bk-website-ingress
 
 gcloud beta compute backend-services list
 
 gcloud compute backend-services get-health \
- k8s1-959d85dc-default-spikey-website-svc-80-b6345648 \
+ k8s1-959d85dc-default-bk-website-svc-80-b6345648 \
  --global
 
-kubectl scale deployment spikey-website --replicas 2
+kubectl scale deployment bk-website --replicas 2
 
-kubectl get deployment spikey-website
+kubectl get deployment bk-website
 
 for i in `seq 1 100`; do \
   curl --connect-timeout 1 -s 35.227.212.249 && echo; \
@@ -383,98 +383,98 @@ done  | sort | uniq -c
 
 export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
-gcloud container clusters get-credentials spikey-website-cluster \
+gcloud container clusters get-credentials bk-website-cluster \
  --zone us-central1-a \
  --project srianjaneyam
 
-kubectl create namespace spikey-pod
+kubectl create namespace bk-pod
 
-kubectl create serviceaccount intern -n spikey-pod
+kubectl create serviceaccount intern -n bk-pod
 
 kubectl create rolebinding intern-editor \
  --clusterrole=edit \
- --serviceaccount=spikey-pod:intern \
- -n spikey-pod
+ --serviceaccount=bk-pod:intern \
+ -n bk-pod
 
 
-kubectl create -f spikey-psp.yaml -n spikey-pod 
+kubectl create -f bk-psp.yaml -n bk-pod 
 
 kubectl get podsecuritypolicies
 
-gcloud beta container clusters update spikey-website-cluster \
+gcloud beta container clusters update bk-website-cluster \
  --enable-pod-security-policy \
  --zone=us-central1-a 
 
-kubectl auth can-i use podsecuritypolicy/spikey-psp \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+kubectl auth can-i use podsecuritypolicy/bk-psp \
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 kubectl apply -f create-pod.yaml \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 # kubectl create -f create-priviledged-pod.yaml \
-#  --as=system:serviceaccount:spikey-pod:intern \
-#  -n spikey-pod 
+#  --as=system:serviceaccount:bk-pod:intern \
+#  -n bk-pod 
 
 gcloud info | grep Account
 
-kubectl create clusterrolebinding spikey-website-cluster-admin-binding \
+kubectl create clusterrolebinding bk-website-cluster-admin-binding \
  --clusterrole=cluster-admin \
- --user=spikeysales@loonycorn.com
+ --user=bksales@loonycorn.com
 
 kubectl create role psp:unprivileged \
-    -n spikey-pod \
+    -n bk-pod \
     --verb=use \
     --resource=podsecuritypolicy \
-    --resource-name=spikey-psp 
+    --resource-name=bk-psp 
 
 kubectl create rolebinding intern:psp:unprivileged \
-    -n spikey-pod \
+    -n bk-pod \
     --role=psp:unprivileged \
-    --serviceaccount=spikey-pod:intern
+    --serviceaccount=bk-pod:intern
 
-kubectl auth can-i use podsecuritypolicy/spikey-psp \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+kubectl auth can-i use podsecuritypolicy/bk-psp \
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 
 kubectl apply -f create-pod.yaml \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 kubectl apply -f create-privileged-pod.yaml \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 
-kubectl delete pod spikey \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+kubectl delete pod bk \
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
-kubectl run spikey --image=gcr.io/srianjaneyam/spikey-website:v1 \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+kubectl run bk --image=gcr.io/srianjaneyam/bk-website:v1 \
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 kubectl get pods \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod 
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod 
 
 kubectl get events  \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod | head -n 2
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod | head -n 2
 
 
 kubectl create rolebinding default:psp:unprivileged \
     --role=psp:unprivileged \
-    --serviceaccount=spikey-pod:default \
-    -n spikey-pod 
+    --serviceaccount=bk-pod:default \
+    -n bk-pod 
 
 kubectl  get pods --watch \
- --as=system:serviceaccount:spikey-pod:intern \
- -n spikey-pod
+ --as=system:serviceaccount:bk-pod:intern \
+ -n bk-pod
 
-gcloud beta container clusters update spikey-website-cluster \
+gcloud beta container clusters update bk-website-cluster \
  --no-enable-pod-security-policy \
  --zone=us-central1-a 
 
@@ -487,7 +487,7 @@ export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
 gcloud config set compute/zone us-central1-a
 
-gcloud container clusters update spikey-website-cluster \
+gcloud container clusters update bk-website-cluster \
  --start-ip-rotation 
 
 gcloud container operations list | grep "AUTO_UPGRADE_NODES.*RUNNING"
@@ -495,14 +495,14 @@ gcloud container operations list | grep "AUTO_UPGRADE_NODES.*RUNNING"
 gcloud container operations wait operation-1541241685595-21eaaea5 \
  --zone us-central1-a
 
-gcloud container clusters get-credentials spikey-website-cluster 
+gcloud container clusters get-credentials bk-website-cluster 
 
-gcloud container clusters update spikey-website-cluster \
+gcloud container clusters update bk-website-cluster \
  --complete-ip-rotation
 
 
 
-gcloud container clusters get-credentials spikey-website-cluster --project spikey-developers --zone us-central1-a
+gcloud container clusters get-credentials bk-website-cluster --project bk-developers --zone us-central1-a
 
 >>> Module 3 Demo 1
 
@@ -608,9 +608,9 @@ git config credential.helper gcloud.sh
 
 git remote add origin https://source.developers.google.com/p/srianjaneyam/r/default
 
-git config --global user.email "spikeysales@loonycorn.com"
+git config --global user.email "bksales@loonycorn.com"
 
-git config --global user.name "spikey-dev"
+git config --global user.name "bk-dev"
 
 # Edit Jenkinsfile and correct project_id
 

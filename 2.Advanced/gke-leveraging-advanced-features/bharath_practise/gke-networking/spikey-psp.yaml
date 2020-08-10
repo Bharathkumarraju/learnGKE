@@ -1,7 +1,7 @@
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: spikey-psp
+  name: bk-psp
 spec:
   privileged: false  # Prevents creation of privileged Pods
   seLinux:

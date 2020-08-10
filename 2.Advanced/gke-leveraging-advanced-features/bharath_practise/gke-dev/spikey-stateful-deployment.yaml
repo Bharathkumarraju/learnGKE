@@ -1,32 +1,32 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: spikey-website
+  name: bk-website
 spec:
-  serviceName: spikey-website
+  serviceName: bk-website
   replicas: 3
   updateStrategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: spikey-website
+      app: bk-website
   template:
     metadata:
       labels:
-        app: spikey-website
+        app: bk-website
     spec:
       containers:
-      - name: spikey-website
-        image:  gcr.io/srianjaneyam/spikey-website:v1
+      - name: bk-website
+        image:  gcr.io/srianjaneyam/bk-website:v1
         ports:
         - containerPort: 80
-          name: spikey-website
+          name: bk-website
         volumeMounts:
-        - name: spikey-website-pv
-          mountPath: /spikey-website-pv
+        - name: bk-website-pv
+          mountPath: /bk-website-pv
   volumeClaimTemplates:
   - metadata:
-      name: spikey-website-pv
+      name: bk-website-pv
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

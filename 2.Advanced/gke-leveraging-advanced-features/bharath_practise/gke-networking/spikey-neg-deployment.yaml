@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: spikey-website
-  name: spikey-website 
+    run: bk-website
+  name: bk-website
 spec: 
   minReadySeconds: 60 # Number of seconds to wait after a Pod is created and its status is Ready
   selector:
     matchLabels:
-      run: spikey-website
+      run: bk-website
   template:
     metadata:
       labels:
-        run: spikey-website 
+        run: bk-website
     spec: 
       containers:
       - image: k8s.gcr.io/serve_hostname:v1.4 

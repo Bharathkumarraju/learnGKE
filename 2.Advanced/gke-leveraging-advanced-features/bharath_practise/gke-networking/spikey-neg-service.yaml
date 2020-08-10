@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spikey-website-svc 
+  name: bk-website-svc
   annotations:
     cloud.google.com/neg: '{"ingress": true}' # Creates an NEG after an Ingress is created
 spec: 
   selector:
-    run: spikey-website 
+    run: bk-website
   ports:
   - port: 80 
     protocol: TCP

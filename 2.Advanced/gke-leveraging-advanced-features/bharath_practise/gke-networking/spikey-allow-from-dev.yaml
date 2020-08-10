@@ -1,13 +1,13 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: spikey-allow-from-dev
+  name: bk-allow-from-dev
 spec:
   policyTypes:
   - Ingress
   podSelector:
     matchLabels:
-      app: spikey-website
+      app: bk-website
   ingress:
   - from:
     - podSelector:

@@ -1,19 +1,19 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spikey-website
+  name: bk-website
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: spikey-website
+      app: bk-website
   template:
     metadata:
       labels:
-        app: spikey-website
+        app: bk-website
     spec:
       containers:
-      - name: spikey-website
-        image: gcr.io/srianjaneyam/spikey-website:v1
+      - name: bk-website
+        image: gcr.io/srianjaneyam/bk-website:v1
         ports:
         - containerPort: 8080

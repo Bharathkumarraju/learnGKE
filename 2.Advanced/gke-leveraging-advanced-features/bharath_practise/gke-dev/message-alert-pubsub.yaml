@@ -15,7 +15,7 @@ spec:
       - name: subscriber
         image: gcr.io/google-samples/pubsub-sample:v1
 
-
+---
 
 
 apiVersion: apps/v1
