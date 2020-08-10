@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: spikey-website
+  name: spikey-website 
+spec: 
+  minReadySeconds: 60 # Number of seconds to wait after a Pod is created and its status is Ready
+  selector:
+    matchLabels:
+      run: spikey-website
+  template:
+    metadata:
+      labels:
+        run: spikey-website 
+    spec: 
+      containers:
+      - image: k8s.gcr.io/serve_hostname:v1.4 
+        name: hostname 
+        ports:
+        - containerPort: 9376 
+          protocol: TCP
+      terminationGracePeriodSeconds: 60

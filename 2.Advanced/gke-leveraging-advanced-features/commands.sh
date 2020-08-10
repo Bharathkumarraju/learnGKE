@@ -7,7 +7,7 @@
 # create two bucket with name customer reviews and customer ratings
 # upoad only one file from local directory/customer-reviews to bucket/customer-reviews
 
-gcloud config set project spikey-gke
+gcloud config set project srianjaneyam
 
 gcloud config set compute/zone us-central1-a
 
@@ -20,11 +20,11 @@ kubectl describe node gke-spikey-dev-cluste-preemptive-pool-c72cb76e-hzpb
 # go to editor and write image file in gke-dev directory
 # upload that file in gcr
 
-docker build -t gcr.io/spikey-gke/customer-ratings:v1 .
+docker build -t gcr.io/srianjaneyam/customer-ratings:v1 .
 
 gcloud auth configure-docker
 
-docker push gcr.io/spikey-gke/customer-ratings:v1
+docker push gcr.io/srianjaneyam/customer-ratings:v1
 
 # write yaml file of job
 # run the job
@@ -77,7 +77,7 @@ gcloud container node-pools delete preemptive-pool --cluster spikey-dev-cluster
 >>>>> Module 1 Demo 3
 ### STATELESS - STATEFUL - ROLLING UPDATE
 
-gcloud config set project spikey-gke
+gcloud config set project srianjaneyam
 
 gcloud config set compute/zone us-central1-a
 
@@ -86,15 +86,15 @@ sudo gcloud components update
 
 # Uploading website to gcr 
 
-docker build -t gcr.io/spikey-gke/spikey-website:v1 .
+docker build -t gcr.io/srianjaneyam/spikey-website:v1 .
 
 gcloud auth configure-docker
 
-docker push gcr.io/spikey-gke/spikey-website:v1 
+docker push gcr.io/srianjaneyam/spikey-website:v1 
 
-docker build -t gcr.io/spikey-gke/spikey-website:v1-offer .
+docker build -t gcr.io/srianjaneyam/spikey-website:v1-offer .
 
-docker push gcr.io/spikey-gke/spikey-website:v1-offer 
+docker push gcr.io/srianjaneyam/spikey-website:v1-offer 
 
 
 # Deploying spikeysales first version 
@@ -114,7 +114,7 @@ kubectl expose deployment spikey-website --type LoadBalancer --port 80 --target-
 
 # Deploying spikeysales secong version 
 # Go to deployment console action -> rolling update and then change the image file to 
-# gcr.io/spikey-gke/spikeysales-website:v1-offer
+# gcr.io/srianjaneyam/spikeysales-website:v1-offer
 # observe the revision
 
 kubectl rollout status deployment spikey-website
@@ -133,7 +133,7 @@ kubectl rollout undo deployment spikey-website --to-revision=1
 
 
 # Deploying stateful deployment using RollingUpdate using imagefile
-# gcr.io/spikey-gke/spikeysales-website:v1-offer
+# gcr.io/srianjaneyam/spikeysales-website:v1-offer
 # Delete pods from both the deloyment and observe the difference 
 
 
@@ -152,7 +152,7 @@ kubectl get deployments spikey-website -o yaml
 >>>>> Module 1 Demo 4
 
 gcloud container clusters get-credentials spikey-dev-cluster \
---zone us-central1-a --project spikey-gke
+--zone us-central1-a --project srianjaneyam
 
 gcloud pubsub topics create echo
 gcloud pubsub subscriptions create echo-read --topic=echo
@@ -168,7 +168,7 @@ kubectl logs -l app=message-alert
 # Check Furnish a new private key and choose key type as JSON.
 
 kubectl create secret generic message-alert-key \
---from-file=key.json=../../spikey-gke-fb086be90faf.json
+--from-file=key.json=../../srianjaneyam-fb086be90faf.json
 
 
 kubectl apply -f message-alert-pubsub.yaml
@@ -191,7 +191,7 @@ kubectl logs -l app=message-alert
 
 export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
-gcloud config set project spikey-gke
+gcloud config set project srianjaneyam
 
 gcloud config set compute/zone us-central1-a
 
@@ -201,7 +201,7 @@ gcloud container clusters create spikey-cluster \
  --enable-network-policy
 
 kubectl run spikey-website --labels app=spikey-website \
-  --image=gcr.io/spikey-gke/spikey-website:v1 \
+  --image=gcr.io/srianjaneyam/spikey-website:v1 \
   --port 80 \
   --expose
 
@@ -346,7 +346,7 @@ export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
 gcloud container clusters get-credentials spikey-website-cluster \
  --zone us-central1-a \
- --project spikey-gke
+ --project srianjaneyam
 
 
 kubectl apply -f spikey-neg-deployment.yaml
@@ -385,7 +385,7 @@ export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
 gcloud container clusters get-credentials spikey-website-cluster \
  --zone us-central1-a \
- --project spikey-gke
+ --project srianjaneyam
 
 kubectl create namespace spikey-pod
 
@@ -452,7 +452,7 @@ kubectl delete pod spikey \
  --as=system:serviceaccount:spikey-pod:intern \
  -n spikey-pod 
 
-kubectl run spikey --image=gcr.io/spikey-gke/spikey-website:v1 \
+kubectl run spikey --image=gcr.io/srianjaneyam/spikey-website:v1 \
  --as=system:serviceaccount:spikey-pod:intern \
  -n spikey-pod 
 
@@ -508,7 +508,7 @@ gcloud container clusters get-credentials spikey-website-cluster --project spike
 
 export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
 
-gcloud config set project spikey-gke
+gcloud config set project srianjaneyam
 
 gcloud config set compute/zone us-central1-f
 
@@ -606,7 +606,7 @@ git init
 
 git config credential.helper gcloud.sh
 
-git remote add origin https://source.developers.google.com/p/spikey-gke/r/default
+git remote add origin https://source.developers.google.com/p/srianjaneyam/r/default
 
 git config --global user.email "spikeysales@loonycorn.com"
 

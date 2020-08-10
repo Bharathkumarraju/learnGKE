@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Spikey Sales</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="style.css">
+
+        <style type="text/css">
+            /*
+    STYLE
+*/
+@import "https://fonts.googleapis.com/css?family=Sunflower:300";
+
+
+body {
+    font-family: Sunflower, sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: Sunflower, sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#heading{
+    display: inline-block;
+    margin: 10px;
+    color: white;
+}
+
+h4 {
+    font-family: Sunflower, sans-serif;
+    color: #56677C
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #56677C;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.nav-ul {
+    display: inline-block;
+    float: right;
+}
+
+.nav-li {
+    display: inline-block;
+    margin: 0px 5px;
+}
+
+
+
+/*
+    SIDEBAR STYLE
+*/
+.wrapper {
+    display: flex;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #56677C;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #56677C;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/*
+    CONTENT STYLE
+*/
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}
+
+.item-image {
+    display: inline-block;
+    overflow: hidden;
+    background-position: center;
+}
+/*
+    MEDIAQUERIES
+*/
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+        </style>
+    </head>
+    <body>
+
+
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>SpikeySales</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Orders</a>
+                    </li>
+                    <li>
+                        <a href="#">Contacts</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="#">Sign Up</a></li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <h4 id="heading">Spikey Sales</h4>
+                        </div>
+
+                        <div class="navbar-collapse" id="bs-example-navbar-collapse-1" style="max-width: 300px;">
+                            <ul class="nav navbar-nav navbar-right nav-ul">
+                                <li class="nav-li"><a href="#" style="color:white;">Home</a></li>
+                                <li class="nav-li"><a href="corousel.html" style="color:white;">Orders</a></li>
+                                <li class="nav-li"><a href="#" style="color:white;">Contacts</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </nav>
+
+                <div class = "alert alert-success">
+                   Whoaaa! FLAT 50% OFF on all clothing items.
+                </div>
+
+                <h4>Home for fasion freaks.</h4> 
+
+                <div class="line"></div>
+
+                <div class="item-image">
+                    <img src="https://images.pexels.com/photos/1337477/pexels-photo-1337477.jpeg?cs=srgb&dl=adult-checkered-shirt-facial-hair-1337477.jpg&fm=jpg" height="300">
+                    <p> </p>
+                    <h4>Men's Checkered Casual Shirt</h4>
+                <p> - Pure Cotton Material <br>
+                    - Comfort Fit <br>
+                    - Streachable Material <br>
+                    - Outing wear <br>
+                    - Stylished Shirts. <br> </p>
+                </div>
+                    
+                
+                    
+                <div class="line"></div>
+
+                <div class="item-image">
+                <img src="https://images.pexels.com/photos/769732/pexels-photo-769732.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" width="300">
+                    <p> </p>
+                </div>
+
+                <h4>Slim Fit Casual Shirts</h4>
+                <p> - Ideal for men <br>
+                    - Material: Cotton <br>
+                    - Classic fit with comfort <br>
+                    - Suitable for summer season <br>
+                    - Wash separately, mild detergent  and dry inside out <br> </p>
+
+
+                <div class="line"></div>
+
+                <div class="item-image">
+                <img src="https://images.pexels.com/photos/991509/pexels-photo-991509.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" width="300">
+                    <p> </p>
+                </div>
+
+                <h4>Regular T Shirt</h4>
+                <p> - Fabric - Cotton <br>
+                    - Luxurious cotton fabric for superior comfort <br>
+                    - Proudly made in India <br>
+                    - Care instruction - machine wash or hand wash <br> </p>
+
+                <div class="line"></div>
+                
+            </div>
+        </div>
+
+         </script>
+    </body>
+</html>
