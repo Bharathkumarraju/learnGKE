@@ -89,3 +89,30 @@ Updating binary-auth-cluster...done.
 Updated [https://container.googleapis.com/v1beta1/projects/srianjaneyam/zones/us-central1-a/clusters/binary-auth-cluster].
 To inspect the contents of your cluster, go to: https://console.cloud.google.com/kubernetes/workload_/gcloud/us-central1-a/binary-auth-cluster?project=srianjaneyam
 
+
+
+bharath@cloudshell:~/binary-auth (bkr-binauth-test)$ kubectl get event --template '{{range.items}}{{"\033[0;36m"}}{{.reason}}:{{"\033[0m"}}{{.message}}{{"\n"}}{{end}}'
+Killing:Stopping container apple-app
+Killing:Stopping container banana-app
+DeletingLoadBalancer:Deleting load balancer
+PortNotAllocated:Port 30641 is not allocated; repairing
+ClusterIPNotAllocated:Cluster IP [IPv4]:10.76.12.134 is not allocated; repairing
+DeletedLoadBalancer:Deleted load balancer
+Sync:Scheduled for sync
+DeletingLoadBalancer:Deleting load balancer
+PortNotAllocated:Port 31609 is not allocated; repairing
+ClusterIPNotAllocated:Cluster IP [IPv4]:10.76.15.30 is not allocated; repairing
+DeletedLoadBalancer:Deleted load balancer
+FailedGetResourceMetric:unable to get metric cpu: no metrics returned from resource metrics API
+FailedGetScale:%v
+NegCRError:failed to delete NEG k8s1-3629131d-default-apple-service-5678-748328e6 in us-central1-a: googleapi: Error 400: The network_endpoint_group resource 'projects/bkr-binauth-test/zones/us-central1-a/networkEndpointGroups/k8s1-3629131d-default-apple-service-5678-748328e6' is already being used by 'projects/bkr-binauth-test/global/backendServices/k8s1-3629131d-default-apple-service-5678-748328e6', resourceInUseByAnotherResource
+NegCRError:failed to delete NEG k8s1-3629131d-default-banana-service-5678-c3ed1dfd in us-central1-a: googleapi: Error 400: The network_endpoint_group resource 'projects/bkr-binauth-test/zones/us-central1-a/networkEndpointGroups/k8s1-3629131d-default-banana-service-5678-c3ed1dfd' is already being used by 'projects/bkr-binauth-test/global/backendServices/k8s1-3629131d-default-banana-service-5678-c3ed1dfd', resourceInUseByAnotherResource
+Killing:Stopping container load-generator
+DeletingLoadBalancer:Deleting load balancer
+PortNotAllocated:Port 31801 is not allocated; repairing
+ClusterIPNotAllocated:Cluster IP [IPv4]:10.76.4.65 is not allocated; repairing
+DeletedLoadBalancer:Deleted load balancer
+bharath@cloudshell:~/binary-auth (bkr-binauth-test)$
+
+
+
